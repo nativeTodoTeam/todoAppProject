@@ -20,13 +20,15 @@ const RouteConfigs = {
   Home: {
     screen: Home,
     navigationOptions: ({navigation}) => ({
-      title: 'TODO'
+      title: 'TODO',
+      headerStyle: {height: 48, backgroundColor: '#09b1b0'},
     }),
   },
   Edit: {
     screen: Edit,
     navigationOptions: ({navigation}) => ({
-      title: 'TODO'
+      title: '编辑',
+      headerStyle: {height: 48, backgroundColor: '#09b1b0'},
     }),
   },
 };
@@ -36,8 +38,11 @@ const StackNavigatorConfig = {
   initialRouteParams: {initPara: '初始页面参数'},
   navigationOptions: {
     title: '标题',
-    headerTitleStyle: {fontSize: 18, color: '#ffffff'},
-    headerStyle: {height: 0, backgroundColor: '#09b1b0'},
+    headerTitleStyle: {fontSize: 24, color: '#ffffff'},
+    headerBackTitle: '返回',
+    headerBackTitleStyle: {color: '#fff', fontSize: 18,},
+    headerTintColor: '#fff',
+    headerStyle: {height: 0, backgroundColor: '#09b1b0', color: '#fff'},
   },
   // paths: '',
   mode: 'card',

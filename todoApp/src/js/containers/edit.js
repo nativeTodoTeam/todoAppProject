@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet, TextInput, TouchableHighlight } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, TouchableHighlight, DeviceEventEmitter } from 'react-native';
 
 import { scaleSize } from '../components/common';
 
@@ -29,13 +29,25 @@ export default class Login extends Component {
 
   _buttonClick() {
     if (this.state.text == '') {
-      alert('请输入内容');
+      return false;
     } else {
-      fetch('http://wmtodolist.com/todo/add.json?content=' + this.state.text)
+      console.log(this.props.navigation.state.params.id);
+      fetch('http://wmtodolist.com/todo/update/content.json', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: this.props.navigation.state.params.id,
+          content: this.state.text,
+        })
+      })
       .then((response) => {
         console.log(response)
         if (response.ok) {
           const { navigate } = this.props.navigation;
+          DeviceEventEmitter.emit('Add', '刷新');
           navigate('Index')
         }
       })
@@ -59,13 +71,17 @@ export default class Login extends Component {
             onChangeText = {(text) => this.setState({text})}
           />
         </View>
-        <View style = {styles.buttonView}>
-          <TouchableHighlight onPress = {() => this._buttonClick()}>
-            <View style = {styles.button}>
-              <Text style = {styles.buttonText}>保存</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
+        <TouchableHighlight
+          underlayColor = '#fff'
+          onPress = {() => this._buttonClick()}>
+          <View style = {[styles.button, {
+            backgroundColor: this.state.text == '' ? '#f5f5f5' : '#09b1b0',
+          }]}>
+            <Text style = {[styles.buttonText, {
+              color: this.state.text == '' ? '#333' : '#fff'
+            }]}>保存</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -74,6 +90,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: '#ffffff',
   },
   inputView: {

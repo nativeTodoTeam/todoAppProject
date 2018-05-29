@@ -14,7 +14,17 @@ export default class Login extends Component {
 
   _buttonClick() {
 
-  fetch('http://wmtodolist.com/user/logon.json?email=' + this.state.text + '&password=' + this.state.pw)
+    fetch('http://wmtodolist.com/user/logon.json', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.text,
+        password: this.state.pw,
+      })
+    })
     .then((response) => {
       console.log(response)
       // 接口完好时, 不需要注释, 主要功能判断登陆是否成功
@@ -25,7 +35,7 @@ export default class Login extends Component {
     })
     .catch((error) => {
       console.error(error);
-    });
+    })
   }
 
   render() {

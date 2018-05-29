@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet, DeviceEventEmitter } from 'react-na
 
 import { scaleSize } from '../components/common';
 import List from '../components/list';
+import SwiperList from '../components/swiperList';
 
 export default class Index extends Component {
   constructor(props) {
@@ -27,48 +28,6 @@ export default class Index extends Component {
   }
 
   getData() {
-    // this.setState({
-    //   unfinishData: [{
-    //     id: 1,
-    //     status: 1,
-    //     content: '1231'
-    //   },
-    //   {
-    //     id: 2,
-    //     status: 1,
-    //     content: '1232'
-    //   },
-    //   {
-    //     id: 3,
-    //     status: 1,
-    //     content: '1233'
-    //   },
-    //   {
-    //     id: 4,
-    //     status: 1,
-    //     content: '1234'
-    //   }],
-    //   finishData:[{
-    //     id: 5,
-    //     status: 4,
-    //     content: '1235'
-    //   },
-    //   {
-    //     id: 6,
-    //     status: 4,
-    //     content: '1236'
-    //   },
-    //   {
-    //     id: 7,
-    //     status: 4,
-    //     content: '1237'
-    //   },
-    //   {
-    //     id: 8,
-    //     status: 4,
-    //     content: '1238'
-    //   }]
-    // })
     fetch('http://wmtodolist.com/todo/list.json?status=1')
       .then((response) => response.json())
       .then((responseJson) => {
@@ -102,7 +61,17 @@ export default class Index extends Component {
   finishClick(id) {
     console.log('finishClick');
     console.log(id);
-    fetch('http://wmtodolist.com/todo/mark.json?id=' + id + '&isFinish=4')
+    fetch('http://wmtodolist.com/todo/mark.json', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        isFinish: 4,
+      })
+    })
     .then((response) => {
       console.log(response)
       if (response.ok) {
@@ -131,7 +100,17 @@ export default class Index extends Component {
     console.log('unfinishClick');
     console.log(id);
     let data = this.state.finishList;
-    fetch('http://wmtodolist.com/todo/mark.json?id=' + id + '&isFinish=1')
+    fetch('http://wmtodolist.com/todo/mark.json', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        isFinish: 1,
+      })
+    })
     .then((response) => {
       console.log(response)
       if (response.ok) {
@@ -171,33 +150,17 @@ export default class Index extends Component {
           <View style = {styles.titleView}>
             <Text style = {styles.titleText}>未完成TODO</Text>
           </View>
-          {
-            this.state.unfinishData.map((item, index) => {
-              return <View
-                key = {index}
-                style = {styles.list}>
-                <List
-                  data = {item}
-                  detailClick = {(id) => this.detailClick(id)}
-                  finishClick = {(id) => this.finishClick(id)}/>
-              </View>
-            })
-          }
+          <SwiperList
+            data = {this.state.unfinishData}
+            detailClick = {(id) => this.detailClick(id)}
+            finishClick = {(id) => this.finishClick(id)} />
           <View style = {styles.titleView}>
             <Text style = {styles.titleText}>已完成TODO</Text>
           </View>
-          {
-            this.state.finishData.map((item, index) => {
-              return <View
-                key = {index}
-                style = {styles.list}>
-                <List
-                  data = {item}
-                  detailClick = {(id) => this.detailClick(id)}
-                  finishClick = {(id) => this.unfinishClick(id)}/>
-              </View>
-            })
-          }
+          <SwiperList
+            data = {this.state.finishData}
+            detailClick = {(id) => this.detailClick(id)}
+            finishClick = {(id) => this.unfinishClick(id)} />
         </ScrollView>
       </View>
     );

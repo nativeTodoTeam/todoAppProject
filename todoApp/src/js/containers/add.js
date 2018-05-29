@@ -13,9 +13,18 @@ export default class Login extends Component {
 
   _buttonClick() {
     if (this.state.text == '') {
-      alert('请输入内容');
+      return false;
     } else {
-      fetch('http://wmtodolist.com/todo/add.json?content=' + this.state.text)
+      fetch('http://wmtodolist.com/todo/add.json', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: this.state.text,
+        })
+      })
       .then((response) => {
         console.log(response)
         if (response.ok) {
@@ -27,8 +36,7 @@ export default class Login extends Component {
       .catch((error) => {
         console.error(error);
       });
-    }
-    
+    }    
   }
 
   render() {
@@ -45,13 +53,17 @@ export default class Login extends Component {
             onChangeText = {(text) => this.setState({text})}
           />
         </View>
-        <View style = {styles.buttonView}>
-          <TouchableHighlight onPress = {() => this._buttonClick()}>
-            <View style = {styles.button}>
-              <Text style = {styles.buttonText}>保存</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
+        <TouchableHighlight
+          underlayColor = '#fff'
+          onPress = {() => this._buttonClick()}>
+          <View style = {[styles.button, {
+            backgroundColor: this.state.text == '' ? '#f5f5f5' : '#09b1b0',
+          }]}>
+            <Text style = {[styles.buttonText, {
+              color: this.state.text == '' ? '#333' : '#fff'
+            }]}>保存</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -60,6 +72,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: '#ffffff',
   },
   inputView: {
@@ -85,13 +98,11 @@ const styles = StyleSheet.create({
     marginTop: scaleSize(100),
     width: scaleSize(600),
     height: scaleSize(88),
-    backgroundColor: '#09b1b0',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: scaleSize(8),
   },
   buttonText: {
     fontSize: scaleSize(32),
-    color: '#fff',
   },
 });

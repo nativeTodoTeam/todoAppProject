@@ -34,7 +34,9 @@ export default class Login extends Component {
         {
           this.state.data.map((item, index) => {
             return <View
-              style = {styles.view}
+              style = {[styles.view, {
+                borderBottomWidth: this.state.data.length - 1 == index ? null : 1
+              }]}
               key = { index }>
               <Image
                 // source = {item.header_img_url&& item.header_img_url != '' ? item.header_img_url : require('../../assets/images/user.avatar.png')}
