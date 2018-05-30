@@ -56,7 +56,7 @@ export default TabNavigator(
     },
   },
   {
-    initialRouteName: 'Add',
+    initialRouteName: 'Index',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       activeTintColor: '#09b1b0',
@@ -110,4 +110,3 @@ const styles = StyleSheet.create({
     })
   }
 });
-

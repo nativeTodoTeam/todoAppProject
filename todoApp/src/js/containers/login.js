@@ -13,6 +13,8 @@ export default class Login extends Component {
   }
 
   _buttonClick() {
+    // const { navigate } = this.props.navigation;
+    //     navigate('Index', { name: 'Jane' })
 
     fetch('http://wmtodolist.com/user/logon.json', {
       method: 'POST',

@@ -34,7 +34,7 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: 'Login',
+  initialRouteName: 'Home',
   initialRouteParams: {initPara: '初始页面参数'},
   navigationOptions: {
     title: '标题',
@@ -54,5 +54,6 @@ const StackNavigatorConfig = {
 };
 
 const AppNav = createStackNavigator(RouteConfigs, StackNavigatorConfig);
+
 
 AppRegistry.registerComponent('todoApp', () => AppNav);

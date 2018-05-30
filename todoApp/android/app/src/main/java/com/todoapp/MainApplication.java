@@ -2,8 +2,8 @@ package com.todoapp;
 
 import android.app.Application;
 
-import com.facebook.react.ReactApplication;
 import com.beefe.picker.PickerViewPackage;
+import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -42,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    System.out.println(mReactNativeHost);
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

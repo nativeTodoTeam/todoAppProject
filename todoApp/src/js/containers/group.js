@@ -13,7 +13,7 @@ export default class Login extends Component {
 
   componentDidMount() {
     console.log('group')
-    fetch('http://wmtodolist.com/chat/userlist.json?name=&pinyin=')
+    fetch('http://wmtodolist.com/user/list.json?pageSize=200&pageNo=1')
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
