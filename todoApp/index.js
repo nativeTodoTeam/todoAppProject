@@ -34,7 +34,7 @@ const RouteConfigs = {
 };
 
 const StackNavigatorConfig = {
-  initialRouteName: 'Home',
+  initialRouteName: 'Login',
   initialRouteParams: {initPara: '初始页面参数'},
   navigationOptions: {
     title: '标题',

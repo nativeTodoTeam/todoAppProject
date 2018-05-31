@@ -66,6 +66,7 @@ export default TabNavigator(
       upperCaseLabel : false, //android 文字是否需要大写 默认true 
       pressColor : '#ffffff', // android 按压时显示的颜色 
       scrollEnabled : false,
+      swipeEnabled: false,
       indicatorStyle: {
         height: 0  // 如TabBar下面显示有一条线，可以设高度为0后隐藏
       }, 
