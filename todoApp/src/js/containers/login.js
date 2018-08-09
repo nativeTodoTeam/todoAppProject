@@ -32,6 +32,7 @@ export default class Login extends Component {
       // 接口完好时, 不需要注释, 主要功能判断登陆是否成功
       // if (response.ok) {
         const { navigate } = this.props.navigation;
+        console.log(this.props.navigation);
         navigate('Index', { name: 'Jane' })
       // }
     })
